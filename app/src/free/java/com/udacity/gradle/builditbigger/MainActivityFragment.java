@@ -2,8 +2,9 @@ package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +15,14 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.sonyamoisset.android.jokefactory.DisplayJokeActivity;
 
-
-/**
- * A placeholder fragment containing a simple view.
- */
 public class MainActivityFragment extends Fragment {
+
+    public MainActivityFragment() {
+    }
 
     ProgressBar progressBar = null;
     public String loadedJoke = null;
     public boolean testFlag = false;
-
-    public MainActivityFragment() {
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +31,7 @@ public class MainActivityFragment extends Fragment {
 
         AdView mAdView = (AdView) root.findViewById(R.id.adView);
 
+        // Set onClickListener for the button
         Button button = (Button) root.findViewById(R.id.joke_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +43,7 @@ public class MainActivityFragment extends Fragment {
 
         progressBar = (ProgressBar) root.findViewById(R.id.joke_progressbar);
         progressBar.setVisibility(View.GONE);
+
 
         // Create an ad request. Check logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
@@ -63,12 +62,12 @@ public class MainActivityFragment extends Fragment {
     public void launchDisplayJokeActivity() {
         if (!testFlag) {
             Context context = getActivity();
-
             Intent intent = new Intent(context, DisplayJokeActivity.class);
             intent.putExtra(context.getString(R.string.jokeEnvelope), loadedJoke);
+            //Toast.makeText(context, loadedJoke, Toast.LENGTH_LONG).show();
             context.startActivity(intent);
-
             progressBar.setVisibility(View.GONE);
         }
     }
+
 }
