@@ -20,3 +20,22 @@ allprojects {
         google()
     }
 }
+
+task runIntegrationTests {
+    group("verification")
+    dependsOn(['startLocalServer', 'intergrationTests', 'stopLocalServer'])
+}
+
+task startLocalServer {
+    dependsOn ':backend:appengineStart'
+    evaluationDependsOn(":backend")
+}
+task stopLocalServer {
+    dependsOn ':backend:appengineStop'
+    mustRunAfter "intergrationTests"
+}
+
+task intergrationTests {
+    dependsOn 'app:connectedAndroidTest'
+    mustRunAfter "startLocalServer"
+}
