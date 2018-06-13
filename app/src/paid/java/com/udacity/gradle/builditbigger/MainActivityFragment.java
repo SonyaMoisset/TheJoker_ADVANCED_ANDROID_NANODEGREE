@@ -24,11 +24,10 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View root = inflater.inflate(R.layout.fragment_main, container, false);
 
-
-        // Set onClickListener for the button
-        Button button = (Button) root.findViewById(R.id.joke_button);
+        Button button = root.findViewById(R.id.joke_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,9 +36,8 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
-        progressBar = (ProgressBar) root.findViewById(R.id.joke_progressbar);
+        progressBar = root.findViewById(R.id.joke_progressbar);
         progressBar.setVisibility(View.GONE);
-
 
         return root;
     }
@@ -48,15 +46,16 @@ public class MainActivityFragment extends Fragment {
         new EndpointAsyncTask().execute(this);
     }
 
-    public void launchDisplayJokeActivity() {
+    public void displayJokeActivity() {
         if (!testFlag) {
             Context context = getActivity();
+
             Intent intent = new Intent(context, DisplayJokeActivity.class);
             intent.putExtra(context.getString(R.string.jokeEnvelope), loadedJoke);
-            //Toast.makeText(context, loadedJoke, Toast.LENGTH_LONG).show();
+
             context.startActivity(intent);
+
             progressBar.setVisibility(View.GONE);
         }
     }
-
 }

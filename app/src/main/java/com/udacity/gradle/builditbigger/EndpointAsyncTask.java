@@ -23,13 +23,10 @@ class EndpointAsyncTask extends AsyncTask<MainActivityFragment, Void, String> {
         mainActivityFragment = params[0];
         context = mainActivityFragment.getActivity();
 
-        if (myApiService == null) {  // Only do this once
+        if (myApiService == null) {
             MyApi.Builder builder = new
                     MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
-                    // options for running against local devappserver
-                    // ­ 10.0.2.2 is localhost's IP address in Android emulator
-                    // ­ turn off compression when running against local devappserver
                     .setRootUrl("http://10.0.2.2:8080/_ah/api/")
                     .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                         @Override
@@ -38,7 +35,6 @@ class EndpointAsyncTask extends AsyncTask<MainActivityFragment, Void, String> {
                             abstractGoogleClientRequest.setDisableGZipContent(true);
                         }
                     });
-            // end options for devappserver
 
             myApiService = builder.build();
         }
@@ -52,8 +48,7 @@ class EndpointAsyncTask extends AsyncTask<MainActivityFragment, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-
         mainActivityFragment.loadedJoke = result;
-        mainActivityFragment.launchDisplayJokeActivity();
+        mainActivityFragment.displayJokeActivity();
     }
 }

@@ -5,11 +5,6 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.sonyamoisset.android.javajoker.Joker;
 
-import javax.inject.Named;
-
-/**
- * An endpoint class we are exposing
- */
 @Api(
         name = "myApi",
         version = "v1",
@@ -19,6 +14,7 @@ import javax.inject.Named;
                 packagePath = ""
         )
 )
+
 public class MyEndpoint {
     @ApiMethod(name = "tellJoke")
     public MyBean tellJoke() {
@@ -27,5 +23,4 @@ public class MyEndpoint {
         response.setData(joker.tellJoke());
         return response;
     }
-
 }
